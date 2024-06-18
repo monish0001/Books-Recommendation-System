@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Import Google Icon Font -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import materialize.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      /* Custom CSS to ensure consistent card height */
+      .card {
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* Ensure each card takes full height */
+      }
+
+      .card-content {
+        flex: 1; /* Allow the content to expand vertically */
+      }
+
+      .card-image {
+        height: 200px; /* Fixed height for card image */
+        overflow: hidden; /* Hide any overflow */
+      }
+
+      .card-image img {
+        width: 100%; /* Ensure the image fills the container */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Cover the entire container */
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #000000">
+    <nav style="background-color: #424242">
+      <div class="nav-wrapper">
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/recommend">Recommendation</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="/">Home</a></li>
+      <li><a href="/recommend">Recommendation</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+
+    <div class="container" style="margin-top: 100px; margin-bottom: 100px">
+      {% for i in range(0, book_name|length, 4) %}
+      <div class="row">
+        {% for j in range(i, i + 4 if i + 4 <= book_name|length else
+        book_name|length) %}
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              {% if image[j] %}
+              <img
+                class="activator"
+                src="{{ image[j] }}"
+                alt="{{ book_name[j] }}"
+              />
+              {% else %}
+              <div class="no-image grey lighten-3"></div>
+              {% endif %}
+            </div>
+            <div class="card-content">
+              <p>
+                <b
+                  >{{ book_name[j][:25] if book_name[j]|length > 30 else
+                  book_name[j] }}</b
+                >
+              </p>
+              <p><b>{{ author[j] }}</b></p>
+              <p><b>Votes:</b> {{ votes[j] }}</p>
+              <p><b>Rating:</b> {{ '%.2f' | format(rating[j]) }}</p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">
+                {{ book_name[j] }}
+                <i class="material-icons right">close</i>
+              </span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <footer class="page-footer" style="background-color: #424242">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Recommendation System</h5>
+            <p class="grey-text text-lighten-4">
+              Our Book Recommendation System is designed to enhance your reading
+              experience by suggesting books that align with your tastes and
+              preferences. Leveraging advanced algorithms and a comprehensive
+              database of books, our system offers personalized recommendations,
+              making it easier for you to discover new titles that you'll love.
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+              <li>
+                <a class="grey-text text-lighten-3" href="/recommend"
+                  >Recommendation</a
+                >
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="/about">About</a>
+              </li>
+              <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="page-footer" style="background-color: #212121">
+        <div class="container">
+          © 2024 Copyright Content
+          <a class="grey-text text-lighten-4 right" href="https://github.com/"
+            >Github</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".sidenav");
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
+  </body>
+</html>

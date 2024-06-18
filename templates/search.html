@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Import Google Icon Font -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Import materialize.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Recommendation System</title>
+  </head>
+  <body style="background-color: #000000">
+    <nav style="background-color: #212121">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Book Recs</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/recommend">Recommendation</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Side Nav (Mobile) -->
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="/">Home</a></li>
+      <li><a href="/recommend">Recommendation</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+
+    <!-- Search Bar -->
+    <nav style="margin-top: 100px; background: #424242">
+      <div class="nav-wrapper">
+        <form action="/recommend_books" method="post">
+          <div class="input-field">
+            <input id="search" type="search" name="user_input" required />
+            <label class="label-icon" for="search"
+              ><i class="material-icons">search</i></label
+            >
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container" style="margin-top: 100px">
+        <div class="row red-text">
+          {% if data == "Sorry, this book is not present in the database." %}
+          <div class="col s12">
+            <div class="message">{{ data }}</div>
+          </div>
+          {% elif data %} {% for i in data %}
+          <div class="col s12 m6 l3">
+            <div class="card">
+              <div class="card-image">
+                <img height="300px" src="{{ i[2] }}" alt="{{ i[0] }}" />
+              </div>
+              <div class="card-content">
+                <p>{{ i[0][:25] if i[0]|length > 30 else i[0] }}</p>
+                <p>{{ i[1] }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="page-footer"
+      style="background-color: #424242; margin-top: 300px"
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Recommendation System</h5>
+            <p class="grey-text text-lighten-4">
+              Our Book Recommendation System is designed to enhance your reading
+              experience by suggesting books that align with your tastes and
+              preferences.
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+              <li>
+                <a class="grey-text text-lighten-3" href="/recommend"
+                  >Recommendation</a
+                >
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="/about">About</a>
+              </li>
+              <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright" style="background-color: #212121">
+        <div class="container">
+          © 2024 Copyright Content
+          <a class="grey-text text-lighten-4 right" href="https://github.com/"
+            >Github</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var elems = document.querySelectorAll(".sidenav");
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
+  </body>
+</html>
